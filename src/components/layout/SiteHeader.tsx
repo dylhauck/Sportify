@@ -16,7 +16,7 @@ export default function SiteHeader() {
             Dashboard
           </Link>
           <Link
-            href="/leagues/new"
+            href="dashboard/leagues/new"
             className="text-sm px-3 py-2 rounded-md bg-black text-white hover:opacity-90"
           >
             Create League

@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth";
+import Header from "@/components/Header";
 
 export default async function DashboardLayout({
   children,
@@ -16,5 +17,9 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  return <>{children}</>;
+  return (
+    <>
+        {children}
+    </>
+  );
 }

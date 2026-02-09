@@ -1,8 +1,7 @@
 import Link from "next/link";
 
 const nav = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/leagues/new", label: "Create League" },
+  { href: "/dashboard", label: "Dashboard" }
 ];
 
 export default function SideNav() {

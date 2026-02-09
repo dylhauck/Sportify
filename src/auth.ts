@@ -24,10 +24,35 @@ export const authOptions: NextAuthOptions = {
         const ok = await bcrypt.compare(password, user.passwordHash);
         if (!ok) return null;
 
-        return { id: user.id, email: user.email };
+        return { 
+          id: user.id, 
+          email: user.email,
+          name: `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim(), 
+        };
       },
     }),
   ],
+
+  callbacks: {
+  async jwt({ token, user }) {
+    // runs on sign-in (user is defined) and later requests (user is undefined)
+    if (user) {
+      token.id = (user as any).id;
+      token.name = (user as any).name;
+      token.email = (user as any).email;
+    }
+    return token;
+  },
+
+  async session({ session, token }) {
+    if (session.user) {
+      (session.user as any).id = token.id;
+      session.user.name = (token.name as string) ?? session.user.name;
+      session.user.email = (token.email as string) ?? session.user.email;
+    }
+    return session;
+  },
+},
   pages: { signIn: "/login" },
   secret: process.env.NEXTAUTH_SECRET,
 };
